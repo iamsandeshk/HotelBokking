@@ -1,0 +1,87 @@
+html,body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: arial;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    width: 100%;
+    display:block;
+    text-align: center;
+    justify-content: center;
+    background-image: url('C:/Users/sande/Downloads/Untitled_Export_V1.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.Customer {
+    font-size: 45px;
+    font-family:'Courier','monospace';
+}
+
+form {
+    max-width: 600px;
+    margin: auto;
+    padding: 1.5rem;
+    border: 1px solid #b5b5b5;
+    border-radius: 20px;
+    align-items: center;
+}
+
+label {
+    margin-top: 1rem;
+    margin-left: 10px;
+    display:block;
+    text-align: start;
+    justify-content: center;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+#go-back {
+    margin-top: 1em;
+    font-size: 40px;
+    margin-left: 11em;
+    cursor: pointer;
+    display:block;
+    text-align: start;
+    justify-content: center;
+}
+
+button {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: #007BFF;
+    color: rgb(235, 235, 235);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#membersList {
+    max-width: 600px;
+    margin: auto;
+    margin-top: 2rem;
+    display:block;
+    text-align: start;
+    justify-content: center;
+}
+
+.member {
+    border: 1px solid #898989;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
