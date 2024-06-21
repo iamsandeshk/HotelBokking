@@ -1,87 +1,127 @@
-html,body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    font-family: arial;
-}
-
 body {
     font-family: Arial, sans-serif;
-    width: 100%;
-    display:block;
-    text-align: center;
-    justify-content: center;
-    background-image: url('C:/Users/sande/Downloads/Untitled_Export_V1.jpeg');
-    background-size: cover;
-    background-repeat: no-repeat;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
 }
 
-.Customer {
-    font-size: 45px;
-    font-family:'Courier','monospace';
-}
-
-form {
-    max-width: 600px;
+.container {
+    width: 50%;
     margin: auto;
-    padding: 1.5rem;
-    border: 1px solid #b5b5b5;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin-top: 50px;
+    margin-bottom: 50px;
     border-radius: 20px;
-    align-items: center;
 }
 
-label {
-    margin-top: 1rem;
-    margin-left: 10px;
-    display:block;
-    text-align: start;
-    justify-content: center;
+ul {
+    list-style-type: none;
+    padding: 0;
 }
 
-input, textarea {
-    width: 100%;
-    padding: 0.5rem;
-    margin-top: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 10px;
+li {
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px 4px rgba(0, 0, 0, 0.1);
 }
 
 #go-back {
-    margin-top: 1em;
     font-size: 40px;
-    margin-left: 11em;
     cursor: pointer;
-    display:block;
-    text-align: start;
-    justify-content: center;
+    text-shadow: 3px 3px 3px rgba(0, 0, 0,0.3);
+}
+
+#go-back:hover {
+    font-size: 40.5px;
+    text-shadow: 3px 3px 3px rgba(0, 0, 0,0.5);
+}
+
+form {
+    padding-right: 25px;
+}
+
+h1, h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.name-inputs {
+    display: flex;
+    justify-content: space-between;
+}
+
+label {
+    margin-top: 10px;
+    margin-left: 5px;
+    margin-right: 15px;
+}
+
+input[type="text"], input[type="email"], input[type="tel"], input[type="date"], input[type="number"], input[type="month"], select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-right: 25px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.checkbox-group {
+    margin-top: 10px;
+}
+
+.checkbox-group label {
+    display: block;
+    margin-top: 5px;
 }
 
 button {
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: #333;
+    color: white;
     border: none;
-    background-color: #007BFF;
-    color: rgb(235, 235, 235);
-    border-radius: 10px;
+    margin-top: 20px;
     cursor: pointer;
+    border-radius: 8px;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background: #555;
 }
 
-#membersList {
-    max-width: 600px;
-    margin: auto;
-    margin-top: 2rem;
-    display:block;
-    text-align: start;
-    justify-content: center;
+#storedBookings {
+    margin-top: 20px;
 }
 
-.member {
-    border: 1px solid #898989;
-    padding: 1rem;
-    border-radius: 10px;
-    margin-bottom: 1rem;
+.booking-controls {
+    display: flex;
+}
+
+.modify-btn, .delete-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    width: 100px;
+    padding: 5px 10px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.delete-btn {
+    margin-right: 35em;
+}
+
+.modify-btn:hover, .delete-btn:hover {
+    background-color: darkred;
 }
