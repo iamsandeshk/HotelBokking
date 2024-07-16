@@ -199,6 +199,54 @@ function calculateAmount() {
 }
 
 // Display bookings on page load
+      function displayBookings() {
+        const storedBookingsDiv = document.getElementById("storedBookings");
+        const bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+
+        storedBookingsDiv.innerHTML =
+          "<ul>" +
+          bookings
+            .map(
+              (booking, index) => `
+            <li>
+                <strong>Name:</strong> ${booking.name}<br>
+                <strong>Address:</strong> ${booking.address}<br>
+                <strong>Date of Birth:</strong> ${booking.dob}<br>
+                <strong>Email:</strong> ${booking.email}<br>
+                <strong>Phone:</strong> ${booking.phone}<br>
+                <strong>Check-in:</strong> ${booking.checkin}<br>
+                <strong>Check-out:</strong> ${booking.checkout}<br>
+                <strong>Guests:</strong> ${booking.guests}<br>
+                <strong>Rooms:</strong> ${booking.rooms}<br>
+                <strong>Room Numbers:</strong> ${booking.availableRooms}<br>
+                <strong>Payment Method:</strong> ${booking.paymentMethod}<br>
+                <strong>Payment Details:</strong> ${booking.paymentDetails}<br>
+                <strong>Total Amount:</strong> $${booking.totalAmount}<br>
+                <div class="booking-controls">
+                    <button class="modify-btn" onclick="modifyBooking(${index})"><i class="fa-solid fa-plus fa-rotate-by" style="--fa-rotate-angle: 80deg;"></i></button>
+                    <button class="delete-btn" onclick="deleteBooking(${index})"><i class="fa-solid fa-trash-can fa-rotate-by" style="--fa-rotate-angle: 350deg;""></i></button>
+                </div>
+            </li>
+        `
+            )
+            .join("") +
+          "</ul>";
+      }
+
+      function deleteBooking(index) {
+        let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+        bookings.splice(index, 1);
+        localStorage.setItem("bookings", JSON.stringify(bookings));
+        displayBookings();
+      }
+
+      function modifyBooking(index) {
+        window.location.href = `order.html?modifyIndex=${index}`;
+      }
+
+      // Display bookings on page load
+      window.onload = displayBookings;
+
 window.onload = () => {
     displayBookings();
     const params = new URLSearchParams(window.location.search);
