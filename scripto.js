@@ -17,13 +17,13 @@ function storeBookingData() {
     const checkout = document.getElementById('checkout').value;
     const guests = document.getElementById('guests').value;
     const rooms = document.getElementById('rooms').value;
-    const availableRooms = Array.from(document.querySelectorAll('input[name="availableRooms"]:checked')).map(cb => cb.value).join(', ');
+    const availableRooms = Array.from(document.querySelectorAll('input[name="availableRooms"]:checked')).map(cb => cb.value);
     const paymentMethod = document.getElementById('paymentMethod').value;
     const paymentDetails = getPaymentDetails(paymentMethod);
     let totalAmount = document.getElementById('totalAmount').value;
 
     // Double amount based on selected rooms
-    const selectedRoomsCount = availableRooms.split(',').length;
+    const selectedRoomsCount = availableRooms.length;
     if (selectedRoomsCount > 0) {
         totalAmount *= selectedRoomsCount; // Assuming totalAmount is already calculated
     }
@@ -39,9 +39,8 @@ function storeBookingData() {
         checkout,
         guests,
         rooms,
-        availableRooms,
+        availableRooms : availableRooms,
         paymentMethod,
-        paymentDetails,
         totalAmount
     };
 
@@ -199,53 +198,52 @@ function calculateAmount() {
 }
 
 // Display bookings on page load
-      function displayBookings() {
-        const storedBookingsDiv = document.getElementById("storedBookings");
-        const bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+function displayBookings() {
+    const storedBookingsDiv = document.getElementById("storedBookings");
+    const bookings = JSON.parse(localStorage.getItem("bookings")) || [];
 
-        storedBookingsDiv.innerHTML =
-          "<ul>" +
-          bookings
-            .map(
-              (booking, index) => `
-            <li>
-                <strong>Name:</strong> ${booking.name}<br>
-                <strong>Address:</strong> ${booking.address}<br>
-                <strong>Date of Birth:</strong> ${booking.dob}<br>
-                <strong>Email:</strong> ${booking.email}<br>
-                <strong>Phone:</strong> ${booking.phone}<br>
-                <strong>Check-in:</strong> ${booking.checkin}<br>
-                <strong>Check-out:</strong> ${booking.checkout}<br>
-                <strong>Guests:</strong> ${booking.guests}<br>
-                <strong>Rooms:</strong> ${booking.rooms}<br>
-                <strong>Room Numbers:</strong> ${booking.availableRooms}<br>
-                <strong>Payment Method:</strong> ${booking.paymentMethod}<br>
-                <strong>Payment Details:</strong> ${booking.paymentDetails}<br>
-                <strong>Total Amount:</strong> $${booking.totalAmount}<br>
-                <div class="booking-controls">
-                    <button class="modify-btn" onclick="modifyBooking(${index})"><i class="fa-solid fa-plus fa-rotate-by" style="--fa-rotate-angle: 80deg;"></i></button>
-                    <button class="delete-btn" onclick="deleteBooking(${index})"><i class="fa-solid fa-trash-can fa-rotate-by" style="--fa-rotate-angle: 350deg;""></i></button>
-                </div>
-            </li>
-        `
-            )
-            .join("") +
-          "</ul>";
-      }
+    storedBookingsDiv.innerHTML =
+      "<ul>" +
+      bookings
+        .map(
+          (booking, index) => `
+        <li>
+            <strong>Name:</strong> ${booking.firstName + booking.lastName}<br>
+            <strong>Address:</strong> ${booking.address}<br>
+            <strong>Date of Birth:</strong> ${booking.dob}<br>
+            <strong>Email:</strong> ${booking.email}<br>
+            <strong>Phone:</strong> ${booking.phone}<br>
+            <strong>Check-in:</strong> ${booking.checkin}<br>
+            <strong>Check-out:</strong> ${booking.checkout}<br>
+            <strong>Guests:</strong> ${booking.guests}<br>
+            <strong>Rooms:</strong> ${booking.rooms}<br>
+            <strong>Room Numbers:</strong> ${Array.isArray(booking.availableRooms) ? booking.availableRooms.join(', ') : booking.availableRooms}<br>
+            <strong>Payment Method:</strong> ${booking.paymentMethod}<br>
+            <strong>Total Amount:</strong> $${booking.totalAmount}<br>
+            <div class="booking-controls">
+                <button class="modify-btn" onclick="modifyBooking(${index})"><i class="fa-solid fa-plus fa-rotate-by" style="--fa-rotate-angle: 80deg;"></i></button>
+                <button class="delete-btn" onclick="deleteBooking(${index})"><i class="fa-solid fa-trash-can fa-rotate-by" style="--fa-rotate-angle: 350deg;""></i></button>
+            </div>
+        </li>
+    `
+        )
+        .join("") +
+      "</ul>";
+  }
 
-      function deleteBooking(index) {
-        let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
-        bookings.splice(index, 1);
-        localStorage.setItem("bookings", JSON.stringify(bookings));
-        displayBookings();
-      }
+  function deleteBooking(index) {
+    let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+    bookings.splice(index, 1);
+    localStorage.setItem("bookings", JSON.stringify(bookings));
+    displayBookings();
+  }
 
-      function modifyBooking(index) {
-        window.location.href = `order.html?modifyIndex=${index}`;
-      }
+  function modifyBooking(index) {
+    window.location.href = `order.html?modifyIndex=${index}`;
+  }
 
-      // Display bookings on page load
-      window.onload = displayBookings;
+  // Display bookings on page load
+  window.onload = displayBookings;
 
 window.onload = () => {
     displayBookings();
