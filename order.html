@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Healthcare Management System</title>
+    <title>Hotel Booking</title>
     <link rel="stylesheet" href="styleo.css" />
     <link
       rel="stylesheet"
@@ -15,124 +15,284 @@
     />
   </head>
   <body>
-
     <div class="container">
-    <a
-      id="go-back"
-      href="index.html"
-    >
-      <i class="fa-solid fa-circle-arrow-left" style="color: #000000"></i>
-    </a>
+      <a id="go-back" href="hotel.html">
+        <i class="fa-solid fa-circle-arrow-left" style="color: #000000"></i>
+      </a>
       <h1>Online Hotel Booking</h1>
-      <form id="bookingForm" onsubmit="return storeBookingData()">
-        <h2>Personal Details</h2>
-        <div class="name-inputs">
-          <label for="firstName">First Name:</label>
-          <input type="text" id="firstName" name="firstName" required />
 
-          <label for="lastName">Last Name:</label>
-          <input type="text" id="lastName" name="lastName" required />
-        </div>
+      <!-- Personal Details Section -->
+      <div id="personalSection">
+        <form id="personalForm">
+          <h2>Personal Details</h2>
+          <div class="name-inputs">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" required />
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" required />
+          </div>
+          <label for="address">Address:</label>
+          <input type="text" id="address" name="address" required />
+          <label for="dob">Date of Birth:</label>
+          <input type="date" id="dob" name="dob" required />
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+          <label for="phone">Phone Number:</label>
+          <input type="tel" id="phone" name="phone" required />
+          <button type="button" onclick="validateAndShowBookingSection()">
+            Next
+          </button>
+        </form>
+      </div>
 
-        <label for="address">Address:</label>
-        <input type="text" id="address" name="address" required />
+      <!-- Booking Details Section -->
+      <div id="bookingSection" style="display: none">
+        <form id="bookingForm">
+          <h2>Booking Details</h2>
+          <label for="checkin">Check-in Date:</label>
+          <input
+            type="date"
+            id="checkin"
+            name="checkin"
+            required
+            onchange="calculateAmount()"
+          />
+          <label for="checkout">Check-out Date:</label>
+          <input
+            type="date"
+            id="checkout"
+            name="checkout"
+            required
+            onchange="calculateAmount()"
+          />
+          <label for="guests">Number of Guests:</label>
+          <input type="number" id="guests" name="guests" required />
+          <label for="rooms">Number of Rooms:</label>
+          <input type="number" id="rooms" name="rooms" required />
+          <label>Available Rooms:</label>
+          <div class="checkbox-group">
+            <label
+              ><input type="checkbox" name="availableRooms" value="342" />
+              Available Room 342</label
+            >
+            <label
+              ><input type="checkbox" name="availableRooms" value="122" />
+              Available Room 122</label
+            >
+            <label
+              ><input type="checkbox" name="availableRooms" value="123" />
+              Available Room 123</label
+            >
+            <label
+              ><input type="checkbox" name="availableRooms" value="420" />
+              Available Room 420</label
+            >
+          </div>
+          <button type="button" onclick="validateAndShowPaymentSection()">
+            Next
+          </button>
+        </form>
+      </div>
 
-        <label for="dob">Date of Birth:</label>
-        <input
-          type="date"
-          id="dob"
-          name="dob"
-          required
-          onchange="validateAge()"
-        />
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required />
-
-        <label for="phone">Phone Number:</label>
-        <input type="tel" id="phone" name="phone" required />
-
-        <h2>Booking Details</h2>
-        <label for="checkin">Check-in Date:</label>
-        <input
-          type="date"
-          id="checkin"
-          name="checkin"
-          required
-          onchange="calculateAmount()"
-        />
-
-        <label for="checkout">Check-out Date:</label>
-        <input
-          type="date"
-          id="checkout"
-          name="checkout"
-          required
-          onchange="calculateAmount()"
-        />
-
-        <label for="guests">Number of Guests:</label>
-        <input type="number" id="guests" name="guests" required />
-
-        <label for="rooms">Number of Rooms:</label>
-        <input type="number" id="rooms" name="rooms" required />
-
-        <label>Available Rooms:</label>
-        <div class="checkbox-group">
-          <label
-            ><input type="checkbox" name="availableRooms" value="342" />
-            Available Room 342</label
+      <!-- Payment Details Section -->
+      <div id="paymentSection" style="display: none">
+        <form id="paymentForm" onsubmit="return storeBookingData()">
+          <h2>Payment Method</h2>
+          <select
+            id="paymentMethod"
+            name="paymentMethod"
+            onchange="showPaymentDetails()"
+            required
           >
+            <option value="">Choose Payment Method</option>
+            <option value="UPI">UPI</option>
+            <option value="Card">Debit or Credit Card</option>
+            <option value="Bank Transfer">Bank Transfer</option>
+            <option value="Offline">Offline</option>
+          </select>
+          <div id="paymentDetails"></div>
+          <div id="amountDetails">
+            <label for="totalAmount">Amount Per Room: $</label>
+            <input type="text" id="totalAmount" name="totalAmount" readonly />
+          </div>
           <label
-            ><input type="checkbox" name="availableRooms" value="122" />
-            Available Room 122</label
+            ><input type="checkbox" id="terms" required /> I agree with the
+            terms and conditions</label
           >
-          <label
-            ><input type="checkbox" name="availableRooms" value="123" />
-            Available Room 123</label
+          <button type="submit">Book Now</button>
+        </form>
+        <h2>
+          <a href="javascript:void(0);" onclick="showBookings()"
+            >View Your Bookings</a
           >
-          <label
-            ><input type="checkbox" name="availableRooms" value="420" />
-            Available Room 420</label
-          >
-        </div>
+        </h2>
+      </div>
 
-        <h2>Payment Method</h2>
-        <select
-          id="paymentMethod"
-          name="paymentMethod"
-          onchange="showPaymentDetails()"
-          required
-        >
-          <option value="">Choose Payment Method</option>
-          <option value="UPI">UPI</option>
-          <option value="Card">Debit or Credit Card</option>
-          <option value="Bank Transfer">Bank Transfer</option>
-          <option value="Offline">Offline</option>
-        </select>
-
-        <div id="paymentDetails"></div>
-
-        <div id="amountDetails">
-          <label for="totalAmount">Amount Per Room: $</label>
-          <input type="text" id="totalAmount" name="totalAmount" readonly />
-        </div>
-
-        <label
-          ><input type="checkbox" id="terms" required /> I agree with the terms
-          and conditions</label
-        >
-
-        <button type="submit">Book Now</button>
-      </form>
-      <h2>
-        <a
-          href="stored.html"
-          >View Your Bookings</a
-        >
-      </h2>
+      <!-- Bookings Section -->
+      <div id="bookingsSection" style="display: none">
+        <h2>Your Bookings</h2>
+        <ul id="bookingsList"></ul>
+        <button onclick="goBackToPersonalSection()">
+          Back to Personal Details
+        </button>
+      </div>
     </div>
-   
     <script src="scripto.js"></script>
+    <script>
+      function validateAndShowBookingSection() {
+        const dob = document.getElementById("dob").value;
+        if (!dob) {
+          alert("Please fill in your date of birth.");
+          return;
+        }
+
+        const birthDate = new Date(dob);
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+        const dayDiff = today.getDate() - birthDate.getDate();
+
+        if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+          age--;
+        }
+
+        if (age < 21) {
+          alert("You must be 21+ to book a room.");
+          return;
+        }
+
+        const personalForm = document.getElementById("personalForm");
+        if (personalForm.checkValidity()) {
+          const formData = new FormData(personalForm);
+          for (let [key, value] of formData.entries()) {
+            sessionStorage.setItem(key, value);
+          }
+          document.getElementById("personalSection").style.display = "none";
+          document.getElementById("bookingSection").style.display = "block";
+        } else {
+          alert("Please fill in all required fields.");
+        }
+      }
+
+      function validateAndShowPaymentSection() {
+        const bookingForm = document.getElementById("bookingForm");
+        if (bookingForm.checkValidity()) {
+          const formData = new FormData(bookingForm);
+
+          for (let [key, value] of formData.entries()) {
+            if (key === "availableRooms") {
+              let rooms = sessionStorage.getItem("availableRooms");
+              rooms = rooms ? rooms.split(",") : [];
+              rooms.push(value);
+              sessionStorage.setItem("availableRooms", rooms.join(","));
+            } else {
+              sessionStorage.setItem(key, value);
+            }
+          }
+
+          document.getElementById("bookingSection").style.display = "none";
+          document.getElementById("paymentSection").style.display = "block";
+        } else {
+          alert("Please fill in all required fields.");
+        }
+      }
+
+      function showPaymentDetails() {
+        const paymentMethod = document.getElementById("paymentMethod").value;
+        const paymentDetails = document.getElementById("paymentDetails");
+        paymentDetails.innerHTML = "";
+
+        if (paymentMethod === "UPI") {
+          paymentDetails.innerHTML =
+            '<label for="upiId">UPI ID:</label><input type="text" id="upiId" name="upiId" required>';
+        } else if (paymentMethod === "Card") {
+          paymentDetails.innerHTML =
+            '<label for="cardNumber">Card Number:</label><input type="text" id="cardNumber" name="cardNumber" required><label for="expiryDate">Expiry Date:</label><input type="month" id="expiryDate" name="expiryDate" required><label for="cvv">CVV:</label><input type="text" id="cvv" name="cvv" required>';
+        } else if (paymentMethod === "Bank Transfer") {
+          paymentDetails.innerHTML =
+            '<label for="accountNumber">Account Number:</label><input type="text" id="accountNumber" name="accountNumber" required><label for="ifsc">IFSC Code:</label><input type="text" id="ifsc" name="ifsc" required>';
+        } else if (paymentMethod === "Offline") {
+          paymentDetails.innerHTML =
+            '<label for="offlineDetails">Offline Payment Details:</label><textarea id="offlineDetails" name="offlineDetails" required></textarea>';
+        }
+      }
+
+      function storeBookingData() {
+        const paymentForm = document.getElementById("paymentForm");
+        if (paymentForm.checkValidity()) {
+          const formData = new FormData(paymentForm);
+          const bookingData = {};
+          for (let [key, value] of formData.entries()) {
+            bookingData[key] = value;
+          }
+          const personalData = getPersonalData();
+          const bookingDetails = getBookingDetails();
+          const booking = {
+            ...personalData,
+            ...bookingDetails,
+            ...bookingData,
+          };
+          saveBooking(booking);
+        } else {
+          alert("Please fill in all required fields.");
+          return false;
+        }
+      }
+
+      function getPersonalData() {
+        const personalData = {};
+        ["firstName", "lastName", "address", "dob", "email", "phone"].forEach(
+          (key) => {
+            personalData[key] = sessionStorage.getItem(key);
+          }
+        );
+        return personalData;
+      }
+
+      function getBookingDetails() {
+        const bookingDetails = {};
+        ["checkin", "checkout", "guests", "rooms", "availableRooms"].forEach(
+          (key) => {
+            bookingDetails[key] = sessionStorage.getItem(key);
+          }
+        );
+        return bookingDetails;
+      }
+
+      function saveBooking(booking) {
+        const bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+        bookings.push(booking);
+        localStorage.setItem("bookings", JSON.stringify(bookings));
+      }
+
+      function showBookings() {
+        const bookingsSection = document.getElementById("bookingsSection");
+        const bookingsList = document.getElementById("bookingsList");
+        const bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+
+        bookingsList.innerHTML = "";
+        bookings.forEach((booking) => {
+          const bookingItem = document.createElement("li");
+          bookingItem.textContent = `
+                    Name: ${booking.firstName + booking.lastName},
+                    Address: ${booking.address},
+                    DOB: ${booking.dob},
+                    Email: ${booking.email},
+                    Phone: ${booking.phone},
+                    Check-in: ${booking.checkin},
+                    Check-out: ${booking.checkout},
+                    Guests: ${booking.guests},
+                    Rooms: ${booking.rooms},
+                    Available Rooms: ${booking.availableRooms.join(", ")},
+                    Payment Method: ${booking.paymentMethod},
+                    Total Amount: $${booking.totalAmount}
+                `;
+          bookingsList.appendChild(bookingItem);
+        });
+
+        document.getElementById("paymentSection").style.display = "none";
+        bookingsSection.style.display = "block";
+      }
+    </script>
   </body>
 </html>
