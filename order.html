@@ -20,7 +20,9 @@
         <i class="fa-solid fa-circle-arrow-left" style="color: #000000"></i>
       </a>
       <h1>Online Hotel Booking</h1>
-
+      <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
       <!-- Personal Details Section -->
       <div id="personalSection">
         <form id="personalForm">
@@ -169,6 +171,7 @@
           }
           document.getElementById("personalSection").style.display = "none";
           document.getElementById("bookingSection").style.display = "block";
+          document.getElementById("progressBar").style.width = "33%";
         } else {
           alert("Please fill in all required fields.");
         }
@@ -180,18 +183,12 @@
           const formData = new FormData(bookingForm);
 
           for (let [key, value] of formData.entries()) {
-            if (key === "availableRooms") {
-              let rooms = sessionStorage.getItem("availableRooms");
-              rooms = rooms ? rooms.split(",") : [];
-              rooms.push(value);
-              sessionStorage.setItem("availableRooms", rooms.join(","));
-            } else {
-              sessionStorage.setItem(key, value);
-            }
+            sessionStorage.setItem(key, value);
           }
 
           document.getElementById("bookingSection").style.display = "none";
           document.getElementById("paymentSection").style.display = "block";
+          document.getElementById("progressBar").style.width = "66%";
         } else {
           alert("Please fill in all required fields.");
         }
@@ -233,6 +230,8 @@
             ...bookingData,
           };
           saveBooking(booking);
+          document.getElementById("progressBar").style.width = "100%";
+          return true;
         } else {
           alert("Please fill in all required fields.");
           return false;
@@ -283,7 +282,7 @@
                     Check-out: ${booking.checkout},
                     Guests: ${booking.guests},
                     Rooms: ${booking.rooms},
-                    Available Rooms: ${booking.availableRooms.join(", ")},
+                    Available Rooms: ${booking.availableRooms.join(",")},
                     Payment Method: ${booking.paymentMethod},
                     Total Amount: $${booking.totalAmount}
                 `;
@@ -293,6 +292,16 @@
         document.getElementById("paymentSection").style.display = "none";
         bookingsSection.style.display = "block";
       }
+
+      function initializeProgressBar() {
+        const progressBar = document.getElementById("progressBar");
+        if (progressBar) {
+          progressBar.style.width = "0%";
+        }
+      }
+
+      // Call initializeProgressBar function when the page loads
+      initializeProgressBar();
     </script>
   </body>
 </html>
