@@ -39,7 +39,7 @@ function storeBookingData() {
         checkout,
         guests,
         rooms,
-        availableRooms : availableRooms,
+        availableRooms:availableRooms,
         paymentMethod,
         totalAmount
     };
